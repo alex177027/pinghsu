@@ -32,11 +32,11 @@
                         <?php endif; ?>
                     </a>
                     <div class="info-text">
-                        <p>Theme is <a href="https://github.com/chakhsu/pinghsu" target="blank">Pinghsu</a> by <a href="https://www.linpx.com/" target="_blank">Chakhsu</a></p>
+			<p>Theme is <a href="https://github.com/chakhsu/pinghsu" target="blank">Pinghsu</a> by <a href="https://www.linpx.com/" target="_blank">Chakhsu</a></p>
                         <?php if ($this->options->ICPRecordNumber): ?>
                         <p><a href="https://beian.miit.gov.cn/" target="blank" ><?php $this->options->ICPRecordNumber(); ?></a></p>
                         <?php endif; ?>
-                        <p>&copy; <?php echo date('Y'); ?> <a href="<?php $this->options->siteUrl(); ?>"><?php $this->options->title(); ?></a></p>
+                        <p>&copy; <?php echo date('Y'); ?> <a href="<?php $this->options->siteUrl(); ?>"><?php $this->options->title(); ?></a> <a href="https://cloudflare.com/" title="Powered by Cloudflare" target='_blank'><img style='display:inline-block;vertical-align:baseline' alt="Cloudflare" src="https://s3.lovejk.cc/pic/cloudflare.svg" width="50" height="16"></a></p>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,21 @@
 <div id="directory-content" class="directory-content">
     <nav class="toc js-toc"></nav>
 </div>
-<script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tocbot/4.18.2/tocbot.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/tocbot/4.25.0/tocbot.min.js"></script>
+<script>
+function addTocId() {
+    var id = 1;
+    var entryContent = document.querySelector('.post-content');
+    var headings = entryContent.querySelectorAll('h1, h2, h3, h4, h5');
+
+    headings.forEach(function(heading) {
+        var hyphenated = 'anchor-' + id;
+        heading.setAttribute('id', hyphenated);
+        id++;
+    });
+}
+addTocId();
+</script>
 <?php endif; ?>
 <?php if(($this->is('single')) && ($this->allow('comment'))): ?>
 <script>
@@ -120,11 +134,10 @@
 <?php if(!$this->user->hasLogin()): ?>
 function getCommentCookie(name){
     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if (arr=document.cookie.match(reg)) {
+    if(arr=document.cookie.match(reg))
         return unescape(decodeURI(arr[2]));
-    } else {
+    else
         return null;
-    }
 }
 function addCommentInputValue(){
     document.getElementById('author').value = getCommentCookie('<?php echo md5($this->request->getUrlPrefix()); ?>__typecho_remember_author');
@@ -136,15 +149,15 @@ addCommentInputValue();
 </script>
 <?php endif; ?>
 <?php $this->footer(); ?>
-<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/headroom/0.12.0/headroom.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/headroom/0.12.0/headroom.min.js"></script>
 <?php if ($this->options->useHighline == 'able'): ?>
-<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/11.4.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <?php endif; ?>
 <?php if ($this->options->pjaxSet == 'able'): ?>
-<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantclick/3.1.0/instantclick.min.js"></script>
+<script src="<?php $this->options->themeUrl('js/instantclick.min.js?v20140319'); ?>"></script>
 <?php endif; ?>
 <?php if ($this->options->fastClickSet == 'able'): ?>
-<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fastclick/1.0.6/fastclick.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 <?php endif; ?>
 <script>
 <?php if (($this->options->tableOfContents == 'able') && ($this->is('post'))): ?>
@@ -194,7 +207,7 @@ var header = new Headroom(document.getElementById("header"), {
 });
 header.init();
 <?php if (($this->options->pjaxSet == 'disable') && ($this->options->useHighline == 'able') && ($this->is('post'))): ?>
-hljs.highlightAll();
+hljs.initHighlightingOnLoad();
 <?php endif; ?>
 <?php if ($this->options->fastClickSet == 'able'): ?>
 if ('addEventListener' in document) {
@@ -224,7 +237,7 @@ MathJax.Hub.Config({
 });
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 </script>
-<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
 <?php endif; ?>
 <?php if($this->options->GoogleAnalytics): ?>
 <?php $this->options->GoogleAnalytics(); ?>
@@ -235,7 +248,7 @@ InstantClick.on('change', function(isInitialLoad){
     <?php if ($this->options->useHighline == 'able'): ?>
     var blocks = document.querySelectorAll('pre code');
     for (var i = 0; i < blocks.length; i++) {
-        hljs.highlightBlock(blocks[i]);
+        hljs.highlightElement(blocks[i]);
     }
     <?php endif; ?>
 

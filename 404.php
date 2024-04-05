@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<meta charset="<?php $this->options->charset(); ?>">
+		<meta charset="<?php $this->options->charset();?>">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 		<meta name="renderer" content="webkit">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 		<meta http-equiv="Cache-Control" content="no-transform"/>
-		<meta http-equiv="Cache-Control" content="no-siteapp"/><?php if($this->options->favicon): ?>
-        <link rel="shortcut icon" href="<?php $this->options->favicon(); ?>"><?php endif;?><?php if($this->options->iosicon): ?>
-        <link rel="apple-touch-icon" href="<?php $this->options->iosicon();?>"><?php endif; ?>
-        <title>Nothing here - <?php $this->options->title() ?></title>
+		<meta http-equiv="Cache-Control" content="no-siteapp"/><?php if ($this->options->favicon): ?>
+        <link rel="shortcut icon" href="<?php $this->options->favicon();?>"><?php endif;?><?php if ($this->options->iosicon): ?>
+        <link rel="apple-touch-icon" href="<?php $this->options->iosicon();?>"><?php endif;?>
+        <title>Nothing here - <?php $this->options->title()?></title>
         <style>
         body{
             margin:0;padding:0;
@@ -131,7 +131,7 @@
                 <section>
                     <div class="title404">
                         <p>I have no secret of success but hard work.</p>
-                    </div><a href="<?php $this->options->siteUrl(); ?>" class="index404">Back Home</a>
+                    </div><a href="<?php $this->options->siteUrl();?>" class="index404">Back Home</a>
                 </section>
             </div>
         </div>
